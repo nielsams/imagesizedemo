@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <title>Image Size Test Page</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style type="text/css">
+
+        .imageDiv { 
+            display: inline-block; 
+            padding-left:5px;
+            padding-right:5px;
+            padding-bottom:10px;
+        }
+        .imageDiv > p {
+            text-align: center;
+            font-size: small;
+        }
+
+        h1 {
+            text-align: center;
+            padding-top:50px;
+        }
+
+        #introText {
+            width:650px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        #imageContainer {
+            margin: auto;
+            width:90%;
+            text-align: center;
+        }
+
+        #slider {
+            width:500px;
+            margin-top:20px;
+            margin-bottom:20px;
+            margin-left:auto;
+            margin-right: auto;
+        }
+
+        #sliderValue {
+            text-align: center;
+            margin-top:20px;
+            margin-bottom:0px;
+            margin-left:auto;
+            margin-right: auto;
+            font-weight:bold;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+
+        const imageWidth = 250;
+        const imageHeight = 250;
+
+        $( document ).ready(function() {
+
+            $("#sliderValue").text("Image Size: " + imageWidth + "x" + imageHeight);
+            $( "#slider" ).slider({
+                min: 100,
+                max: 800, 
+                value: 250,
+                step: 10,
+                slide: function( event, ui ) {
+                    $("#sliderValue").text("Image Size: " + ui.value + "x" + ui.value);
+                    $("img").css("width", ui.value + "px");
+                    $("img").css("height", ui.value + "px");
+                }
+            });
+            
+            var images = [
+                ["RGB 125x125 72dpi JPG 0", "22.9kb", "https://nielsusstorage.blob.core.windows.net/images/rgb125x125x72-0.jpg"],
+                ["RGB 125x125 72dpi JPG 3", "24.8kb", "https://nielsusstorage.blob.core.windows.net/images/rgb125x125x72-3.jpg"],
+                ["RGB 125x125 72dpi JPG 5", "26.1kb", "https://nielsusstorage.blob.core.windows.net/images/rgb125x125x72-5.jpg"],
+                ["RGB 125x125 72dpi JPG 7", "27.1kb", "https://nielsusstorage.blob.core.windows.net/images/rgb125x125x72-7.jpg"],
+
+                ["RGB 250x250 72dpi JPG 0", "43.1kb", "https://nielsusstorage.blob.core.windows.net/images/rgb250x250x72-0.jpg"],
+                ["RGB 250x250 72dpi JPG 3", "49.4kb", "https://nielsusstorage.blob.core.windows.net/images/rgb250x250x72-3.jpg"],
+                ["RGB 250x250 72dpi JPG 5", "54.6kb", "https://nielsusstorage.blob.core.windows.net/images/rgb250x250x72-5.jpg"],
+                ["RGB 250x250 72dpi JPG 7", "58.9kb", "https://nielsusstorage.blob.core.windows.net/images/rgb250x250x72-7.jpg"],
+
+                ["RGB 500x500 72dpi JPG 0", "65.1kb", "https://nielsusstorage.blob.core.windows.net/images/rgb500x500x72-0.jpg"],
+                ["RGB 500x500 72dpi JPG 3", "88.5kb", "https://nielsusstorage.blob.core.windows.net/images/rgb500x500x72-3.jpg"],
+                ["RGB 500x500 72dpi JPG 5", "107.0.6kb", "https://nielsusstorage.blob.core.windows.net/images/rgb500x500x72-5.jpg"],
+                ["RGB 500x500 72dpi JPG 7", "119.2kb", "https://nielsusstorage.blob.core.windows.net/images/rgb500x500x72-7.jpg"],
+
+                ["RGB 1000x1000 72dpi JPG 0", "132.5kb", "https://nielsusstorage.blob.core.windows.net/images/rgb1000x1000x72-0.jpg"],
+                ["RGB 1000x1000 72dpi JPG 3", "214.8kb", "https://nielsusstorage.blob.core.windows.net/images/rgb1000x1000x72-3.jpg"],
+                ["RGB 1000x1000 72dpi JPG 5", "279.4kb", "https://nielsusstorage.blob.core.windows.net/images/rgb1000x1000x72-5.jpg"],
+                ["RGB 1000x1000 72dpi JPG 7", "316.4kb", "https://nielsusstorage.blob.core.windows.net/images/rgb1000x1000x72-7.jpg"],
+        
+                ["RGB 2000x2000 72dpi JPG 0", "303.6kb", "https://nielsusstorage.blob.core.windows.net/images/rgb2000x2000x72-0.jpg"],
+                ["RGB 2000x2000 72dpi JPG 3", "456.1kb", "https://nielsusstorage.blob.core.windows.net/images/rgb2000x2000x72-3.jpg"],
+                ["RGB 2000x2000 72dpi JPG 5", "622.5kb", "https://nielsusstorage.blob.core.windows.net/images/rgb2000x2000x72-5.jpg"],
+                ["RGB 2000x2000 72dpi JPG 7", "749.6kb", "https://nielsusstorage.blob.core.windows.net/images/rgb2000x2000x72-7.jpg"]                
+            ]
+
+            $.each(images, function(index, image) {
+                let url = image[2] + '?' + new Date().getTime();
+                $('#imageContainer').append('<div class="imageDiv" id="img' + index + '"><img src="' + url + '" alt="' + image[0] + '" width="' + imageWidth + '" height="' + imageHeight + '" /><br /><p>' + image[0] + '<br />' + image[1] + '</p></div>');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Image Size Test Page</h1>
+    <div id="introText">
+        <ul>
+        <li>Image are loaded directly into the page from a storage account. </li>
+        <li>Calls to load the images are made from the clients web browser, not the backend. </li>
+        <li>The storage account holds both the html page as well as the images. </li>
+        <li>To view the image loading times, hit F12 and use the network analyzer. </li>
+        <li>The image urls have a random querystring appended to keep them from being cached locally</li>
+        <li>The size at which the images are rendered on the page can be changed with the slider</li>
+        </ul>
+    </div>
+    <div id="sliderValue"></div>
+    <div id="slider"></div>
+    <div id="imageContainer">
+    </div>
+</body>
+</html>
